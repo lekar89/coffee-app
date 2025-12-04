@@ -1,5 +1,5 @@
 import { Button, Text } from '@react-navigation/elements';
-import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, ActivityIndicator, LayoutAnimation, UIManager, Platform } from 'react-native';
 import ProductCard from '../../components/product-сard';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState, useContext } from 'react';
@@ -17,23 +17,43 @@ import { CartScreen } from '../screens/CartScreen';
 export function Home() {
   const navigation = useNavigation();
 
+  if (Platform.OS === 'android') {
+    UIManager.setLayoutAnimationEnabledExperimental?.(true);
+  }
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const dispatch = useDispatch();
-
-
   const context = useContext(ThemeContext);
-if (!context) {
-  throw new Error('ThemeContext must be used within a ThemeProvider');
-}
 
-const { theme, toggleTheme } = context;
+
+  if (!context) {
+    throw new Error('ThemeContext must be used within a ThemeProvider');
+  }
+
+  const handleAddToCart = (item: CoffeeItem) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
+    dispatch(
+      addItem({
+        id: item.id.toString(),
+        name: item.title,
+        price: 10,
+      })
+    );
+  };
+
+  const { theme, toggleTheme } = context;
 
   useEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+
     navigation.setOptions({
       headerRight: () => (
-        <Button onPress={() => navigation.navigate('CartScreen')} color={theme === 'light' ? Colors.primary : Colors.text}>
+        <Button
+          onPress={() => navigation.navigate('CartScreen')}
+          color={theme === 'light' ? Colors.primary : Colors.text}
+        >
           Кошик
         </Button>
       ),
@@ -55,15 +75,8 @@ const { theme, toggleTheme } = context;
   const renderItem = ({ item }: { item: CoffeeItem }) => (
     <TouchableOpacity
       onPress={() => navigation.navigate('Detail', { itemId: item.id })}
-      onLongPress={() =>
-        dispatch(
-          addItem({
-            id: item.id.toString(),
-            name: item.title,
-            price: 10,
-          })
-        )
-      }
+      onLongPress={() => handleAddToCart(item)}
+
     >
       <ProductCard
         product={{
@@ -81,8 +94,8 @@ const { theme, toggleTheme } = context;
   if (loading) {
     return (
       <View style={[, { backgroundColor: theme === 'light' ? Colors.background : Colors.text }]}>
-        <ActivityIndicator size="large" color={theme === 'light' ?  Colors.text  : Colors.background} />
-        <Text style={{ color: theme === 'light' ?  Colors.text  : Colors.background }}>Завантаження...</Text>
+        <ActivityIndicator size="large" color={theme === 'light' ? Colors.text : Colors.background} />
+        <Text style={{ color: theme === 'light' ? Colors.text : Colors.background }}>Завантаження...</Text>
       </View>
     );
   }
@@ -107,7 +120,10 @@ const { theme, toggleTheme } = context;
       />
     </View>
   );
+
 }
+
+
 
 const styles = StyleSheet.create({
   container: {
