@@ -7,12 +7,14 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
 import bell from '../assets/bell.png';
-import ic_home from  '../assets/ic_home.png';
-import ic_cat from  '../assets/ic_categoty.png';
+import ic_home from '../assets/ic_home.png';
+import ic_cat from '../assets/ic_categoty.png';
 import { Home } from './screens/Home';
 import { Detail } from './screens/Detail';
 import { Categories } from './screens/Categories';
 import { NotFound } from './screens/NotFound';
+import { CartScreen } from './screens/CartScreen';
+
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -35,7 +37,7 @@ const HomeTabs = createBottomTabNavigator({
     Updates: {
       screen: Categories,
       options: {
-        title:'Categories',
+        title: 'Categories',
         tabBarIcon: ({ color, size }) => (
           <Image
             source={ic_cat}
@@ -72,6 +74,12 @@ const RootStack = createNativeStackNavigator({
         },
       },
     },
+    CartScreen: {
+      screen: CartScreen,
+      options: {
+        title: 'Кошик', // нормальна назва екрана
+      },
+    },
     NotFound: {
       screen: NotFound,
       options: {
@@ -90,6 +98,6 @@ type RootStackParamList = StaticParamList<typeof RootStack>;
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList { }
   }
 }

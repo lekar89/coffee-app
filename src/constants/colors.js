@@ -9,3 +9,4 @@ export default {
   text: '#121212',
  pleseholdeer: '#a2c1e6ff',
 };
+
