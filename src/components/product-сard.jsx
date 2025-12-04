@@ -1,19 +1,20 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { memo, useCallback } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, LayoutAnimation } from 'react-native';
 import Colors from '../constants/colors';
 import { useDispatch } from 'react-redux';
 import { addItem } from '../store/cartSlice';
 
-const ProductCard = ({ product }) => {
+const ProductCard = memo(({ product }) => {
   const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = useCallback(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     dispatch(addItem({
       id: product.id,
       name: product.name,
       price: product.price,
     }));
-  };
+  }, [dispatch, product]);
 
   return (
     <View style={styles.card}>
@@ -31,7 +32,7 @@ const ProductCard = ({ product }) => {
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   card: {
@@ -45,37 +46,12 @@ const styles = StyleSheet.create({
     elevation: 3,
     overflow: 'hidden',
   },
-  detailsContainer: {
-    padding: 10,
-  },
-  title: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: Colors.text,
-    marginBottom: 5,
-  },
-  price: {
-    fontSize: 14,
-    color: Colors.text,
-    fontWeight: '600',
-    marginBottom: 8,
-  },
-  image: {
-    width: '100%',
-    height: 120,
-    backgroundColor: Colors.placeholder,
-  },
-  button: {
-    backgroundColor: Colors.primary,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '600',
-  },
+  detailsContainer: { padding: 10 },
+  title: { fontSize: 16, fontWeight: 'bold', color: Colors.text, marginBottom: 5 },
+  price: { fontSize: 14, color: Colors.text, fontWeight: '600', marginBottom: 8 },
+  image: { width: '100%', height: 120, backgroundColor: Colors.placeholder },
+  button: { backgroundColor: Colors.primary, padding: 6, borderRadius: 8, alignItems: 'center' },
+  buttonText: { color: '#fff', fontWeight: '600' },
 });
 
 export default ProductCard;
