@@ -3,13 +3,13 @@ import { StaticScreenProps } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 
 type Props = StaticScreenProps<{
-  user: string;
+  productName: string;
 }>;
 
-export function Profile({ route }: Props) {
+export function Detail({ route }: Props) {
   return (
     <View style={styles.container}>
-      <Text>{route.params.user}'s Profile</Text>
+      <Text>youu select: {route.params.productName}</Text>
     </View>
   );
 }

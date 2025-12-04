@@ -1,15 +1,18 @@
 import { Button, Text } from '@react-navigation/elements';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import ProductCard from '../../components/product-сard';
+import { useNavigation } from '@react-navigation/native';
+
 
 export function Home() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Text>Open up 'src/App.tsx' to start working on your app!</Text>
-      <Button screen="Profile" params={{ user: 'jane' }}>
-        Go to Profile
-      </Button>
-      <Button screen="Settings">Go to Settings</Button>
+      <Text> tap on item to go to Detail</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Detail', { productName: "Coffee Smple" })}>
+                <ProductCard product={{ id: '0', name: 'Coffe', price: 15.00, imageUrl: '...' }}></ProductCard>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -7,11 +7,11 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
 import bell from '../assets/bell.png';
-import newspaper from '../assets/newspaper.png';
+import ic_home from  '../assets/ic_home.png';
+import ic_cat from  '../assets/ic_categoty.png';
 import { Home } from './screens/Home';
-import { Profile } from './screens/Profile';
-import { Settings } from './screens/Settings';
-import { Updates } from './screens/Updates';
+import { Detail } from './screens/Detail';
+import { Categories } from './screens/Categories';
 import { NotFound } from './screens/NotFound';
 
 const HomeTabs = createBottomTabNavigator({
@@ -19,10 +19,10 @@ const HomeTabs = createBottomTabNavigator({
     Home: {
       screen: Home,
       options: {
-        title: 'Feed',
+        title: 'Main',
         tabBarIcon: ({ color, size }) => (
           <Image
-            source={newspaper}
+            source={ic_home}
             tintColor={color}
             style={{
               width: size,
@@ -33,11 +33,12 @@ const HomeTabs = createBottomTabNavigator({
       },
     },
     Updates: {
-      screen: Updates,
+      screen: Categories,
       options: {
+        title:'Categories',
         tabBarIcon: ({ color, size }) => (
           <Image
-            source={bell}
+            source={ic_cat}
             tintColor={color}
             style={{
               width: size,
@@ -55,12 +56,12 @@ const RootStack = createNativeStackNavigator({
     HomeTabs: {
       screen: HomeTabs,
       options: {
-        title: 'Home',
+        title: 'Main',
         headerShown: false,
       },
     },
-    Profile: {
-      screen: Profile,
+    Detail: {
+      screen: Detail,
       linking: {
         path: ':user(@[a-zA-Z0-9-_]+)',
         parse: {
@@ -70,17 +71,6 @@ const RootStack = createNativeStackNavigator({
           user: (value) => `@${value}`,
         },
       },
-    },
-    Settings: {
-      screen: Settings,
-      options: ({ navigation }) => ({
-        presentation: 'modal',
-        headerRight: () => (
-          <HeaderButton onPress={navigation.goBack}>
-            <Text>Close</Text>
-          </HeaderButton>
-        ),
-      }),
     },
     NotFound: {
       screen: NotFound,
