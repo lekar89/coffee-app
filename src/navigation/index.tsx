@@ -34,32 +34,31 @@ const HomeTabs = createBottomTabNavigator({
         ),
       },
     },
-    Updates: {
-      screen: Categories,
-      options: {
-        title: 'Categories',
-        tabBarIcon: ({ color, size }) => (
-          <Image
-            source={ic_cat}
-            tintColor={color}
-            style={{
-              width: size,
-              height: size,
-            }}
-          />
-        ),
-      },
-    },
+    // Updates: {
+    //   screen: Categories,
+    //   options: {
+    //     title: 'Categories',
+    //     tabBarIcon: ({ color, size }) => (
+    //       <Image
+    //         source={ic_cat}
+    //         tintColor={color}
+    //         style={{
+    //           width: size,
+    //           height: size,
+    //         }}
+    //       />
+    //     ),
+    //   },
+    // },
   },
 });
 
 const RootStack = createNativeStackNavigator({
   screens: {
-    HomeTabs: {
-      screen: HomeTabs,
+     HomeScreen: {
+      screen: Home,
       options: {
-        title: 'Main',
-        headerShown: false,
+        title: 'Кошик', 
       },
     },
     Detail: {
@@ -77,7 +76,7 @@ const RootStack = createNativeStackNavigator({
     CartScreen: {
       screen: CartScreen,
       options: {
-        title: 'Кошик', // нормальна назва екрана
+        title: 'Кошик', 
       },
     },
     NotFound: {

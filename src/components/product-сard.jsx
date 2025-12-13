@@ -17,7 +17,7 @@ const ProductCard = memo(({ product }) => {
   }, [dispatch, product]);
 
   return (
-    <View style={styles.card}>
+    <View style={styles.card }>
       <Image
         source={{ uri: product.imageUrl }}
         style={styles.image}
@@ -38,15 +38,14 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: Colors.background,
     borderRadius: 15,
-    margin: 10,
-    width: 150,
+    margin: 5,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 5,
     elevation: 3,
     overflow: 'hidden',
   },
-  detailsContainer: { padding: 10 },
+  detailsContainer: { padding: 20 },
   title: { fontSize: 16, fontWeight: 'bold', color: Colors.text, marginBottom: 5 },
   price: { fontSize: 14, color: Colors.text, fontWeight: '600', marginBottom: 8 },
   image: { width: '100%', height: 120, backgroundColor: Colors.placeholder },
