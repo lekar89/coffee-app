@@ -25,5 +25,5 @@ Coffee Order App – це мінімалістичний мобільний до
 
 Перегляд та підтвердження замовлення у кошику.
 
-Скріншоти
+
 <img src="1.png" alt="Main" width="500"> <img src="2.png" alt="Details" width="500"> <img src="3.png" alt="Cart" width="500">
